@@ -1,10 +1,17 @@
 #!/usr/bin/env perl6
-constant FILE = 'paths.txt';
+# Key/value store file
+constant KEYVAL_FILE = 'paths.txt';
+# `alias x='cd y'` file
+constant ALIAS_FILE = 'paths.sh';
+
 my %paths = slurp(FILE).lines>>.split('=');
 
 sub save-paths {
-  my $content = %paths.map({ "$(.key)=$(.value)" }).join("\n");
-  spurt(FILE, $content);
+  my $keyvals = %paths.map({ "$(.key)=$(.value)" }).join("\n");
+  my $aliases = %paths.map({ "alias $(.key)='cd $(.value)'" }).join("\n");
+
+  spurt(KEYVAL_FILE, $keyvals);
+  spurt(ALIAS_FILE, $aliases);
 }
 
 multi MAIN {
