@@ -4,7 +4,7 @@ constant KEYVAL_FILE = 'paths.txt';
 # `alias x='cd y'` file
 constant ALIAS_FILE = 'paths.sh';
 
-my %paths = slurp(FILE).lines>>.split('=');
+my %paths = slurp(KEYVAL_FILE).lines>>.split('=');
 
 sub save-paths {
   my $keyvals = %paths.map({ "$(.key)=$(.value)" }).join("\n");
@@ -35,4 +35,8 @@ multi MAIN($key) {
   die "No such path $key" unless %paths{$key}:exists;
   say "Going to %paths{$key}";
   shell "cd %paths{$key}";
+}
+
+multi MAIN(Bool :$rehash!) {
+  save-paths;
 }
