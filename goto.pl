@@ -33,8 +33,7 @@ multi MAIN(Str $key, Bool :$remove!) {
 
 multi MAIN($key) {
   die "No such path $key" unless %paths{$key}:exists;
-  say "Going to %paths{$key}";
-  shell "cd %paths{$key}";
+  say "$key is going to %paths{$key}";
 }
 
 multi MAIN(Bool :$rehash!) {
