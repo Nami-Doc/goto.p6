@@ -16,7 +16,7 @@ sub save-paths {
 
 multi MAIN {
   say "Paths defined: ";
-  say;
+  say();
   say "  $(.key) => $(.value)" for %paths;
 }
 
